@@ -1,0 +1,2 @@
+def singleton:
+    pass

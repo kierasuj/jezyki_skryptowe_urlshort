@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from flask_cors import CORS
+from routers.router import all_blueprints
 
 def create_app() -> Flask:
     cfg = Config.get_instance()
@@ -13,10 +14,9 @@ def create_app() -> Flask:
     else:
         origins = [o.strip() for o in cfg.cors_origins.split(",") if o.strip()]
         CORS(app, resources={r"/*": {"origins": origins}})
-
-    @app.get("/health")
-    def health():
-        return jsonify({"status": "ok"}), 200
+    
+    for blueprint in all_blueprints:
+        app.register_blueprint(blueprint)
     
     return app
 

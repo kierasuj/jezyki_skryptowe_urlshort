@@ -1,5 +1,4 @@
-import singleton from decorators
-
+from decorators import singleton
 
 @singleton
 class Looger:
